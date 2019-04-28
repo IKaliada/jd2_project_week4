@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+<h3>Please Sign In</h3>
+<form action="#" th:action="@{/login}" th:object="${userDTO}" method="post">
+    <table>
+        <tr>
+            <td th:if="${param.error}">Invalid username or password!</td>
+        </tr>
+        <tr>
+            <td th:if="${param.logout}">You have been logged out!</td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><label>
+                <input type="text" th:field="*{username}"/>
+            </label></td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><label>
+                <input type="password" th:field="*{password}"/>
+            </label></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Sign In</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<div th:fragment="footer">
+    <div class="container">
+        <footer>
+    <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span> |
+                <a th:href="@{/logout}">Sign Out</a>
+            </span>
+
+            <script type="text/javascript"
+                    src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

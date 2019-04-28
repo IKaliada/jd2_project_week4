@@ -14,11 +14,10 @@
 *.rar
 
 # Maven
-*.mvn
+.mvn/
 **/log/
 target/
 
-!.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated

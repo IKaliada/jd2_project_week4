@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <h1>Items</h1>
+</head>
+<body>
+<h1>Items</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>ITEM_STATUS</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item, state : ${items}">
+        <form action="#" th:action="@{/items/{id}(id=${item.id})}" method="post">
+            <td><span th:text="${state.index + 1}"></span></td>
+            <td><span th:text="${item.name}"></span></td>
+            <td>
+                <select name="item_status">
+                    <option th:each="state : ${T(com.gmail.rebel249.repositorymodule.model.ItemStatus).values()}"
+                            th:value="${state}" th:text="${state}"
+                            th:selected="${state.name() == item.itemStatus}">
+                    </option>
+                </select>
+            </td>
+            <td>
+                <button type="submit">Update</button>
+            </td>
+        </form>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<footer>
+    <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span> |
+            </span>
+    <script type="text/javascript"
+            src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</footer>
+</body>
+</html>
