@@ -1,13 +1,13 @@
 package com.gmail.rebel249.servicemodule.model;
 
 
-import com.gmail.rebel249.repositorymodule.model.ItemStatus;
+import com.gmail.rebel249.repositorymodule.model.ItemStatusEnum;
 
 public class ItemDTO {
 
     private Long id;
     private String name;
-    private ItemStatus itemStatus;
+    private ItemStatusEnum itemStatus;
 
     public Long getId() {
         return id;
@@ -25,11 +25,11 @@ public class ItemDTO {
         this.name = name;
     }
 
-    public ItemStatus getItemStatus() {
+    public ItemStatusEnum getItemStatus() {
         return itemStatus;
     }
 
-    public void setItemStatus(ItemStatus itemStatus) {
+    public void setItemStatus(ItemStatusEnum itemStatus) {
         this.itemStatus = itemStatus;
     }
 

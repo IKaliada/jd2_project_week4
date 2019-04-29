@@ -4,7 +4,7 @@ import com.gmail.rebel249.repositorymodule.ItemRepository;
 import com.gmail.rebel249.repositorymodule.exception.IllegalDatabaseStateException;
 import com.gmail.rebel249.repositorymodule.exception.IllegalFormatStatementRepositoryException;
 import com.gmail.rebel249.repositorymodule.model.Item;
-import com.gmail.rebel249.repositorymodule.model.ItemStatus;
+import com.gmail.rebel249.repositorymodule.model.ItemStatusEnum;
 import com.gmail.rebel249.repositorymodule.property.DatabaseProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,7 @@ public class ItemRepositoryImpl extends ConnectionRepositoryImpl implements Item
             Item item = new Item();
             item.setId(resultSet.getLong("id"));
             item.setName(resultSet.getString("name"));
-            item.setItemStatus(ItemStatus.valueOf(resultSet.getString("item_status")));
+            item.setItemStatus(ItemStatusEnum.valueOf(resultSet.getString("item_status")));
             return item;
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);

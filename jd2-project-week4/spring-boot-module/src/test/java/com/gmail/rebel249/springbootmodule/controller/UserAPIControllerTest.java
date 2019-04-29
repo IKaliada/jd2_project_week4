@@ -1,6 +1,7 @@
 package com.gmail.rebel249.springbootmodule.controller;
 
 import com.gmail.rebel249.repositorymodule.model.Role;
+import com.gmail.rebel249.servicemodule.UserService;
 import com.gmail.rebel249.servicemodule.model.UserDTO;
 import com.gmail.rebel249.springbootmodule.config.ApiSecurityConfigurer;
 import org.junit.Before;
@@ -9,14 +10,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,8 +31,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserAPIControllerTest {
     @Autowired
     private WebApplicationContext context;
-    @MockBean
+    @Autowired
     private UsersAPIController userAPIController;
+    @MockBean
+    private UserService userService;
     @MockBean
     private ApiSecurityConfigurer apiSecurityConfigurer;
 
@@ -54,7 +56,7 @@ public class UserAPIControllerTest {
     }
 
     @Test
-    public void findAll() throws Exception {
+    public void shouldReturnSameValueAsExpected() throws Exception {
         UserDTO userDTO = new UserDTO();
         Role role = new Role();
         role.setId(1L);
@@ -64,12 +66,11 @@ public class UserAPIControllerTest {
         userDTO.setPassword("123456");
         userDTO.setRole(role);
         List<UserDTO> users = Collections.singletonList(userDTO);
-        ResponseEntity<List<UserDTO>> listResponseEntity = new ResponseEntity<>(users, HttpStatus.OK);
+        List<UserDTO> listResponseEntity = new ArrayList<>(users);
 
-        given(userAPIController.getUsers()).willReturn(listResponseEntity);
-
+        given(userService.getUsers()).willReturn(listResponseEntity);
         this.mockMvc.perform(get("/api/private/users"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"id\": 1, \"username\": \"username\", \"password\": \"123456\", \"role\": {\"id\": 1, \"name\": \"ADMIN\"}"));
+                .andExpect(content().json("[{'username':'username','password':'123456'}]"));
     }
 }

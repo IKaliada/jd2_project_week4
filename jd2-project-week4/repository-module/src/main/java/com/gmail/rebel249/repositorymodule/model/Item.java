@@ -4,7 +4,7 @@ public class Item {
 
     private Long id;
     private String name;
-    private ItemStatus itemStatus;
+    private ItemStatusEnum itemStatus;
 
     public Long getId() {
         return id;
@@ -22,11 +22,11 @@ public class Item {
         this.name = name;
     }
 
-    public ItemStatus getItemStatus() {
+    public ItemStatusEnum getItemStatus() {
         return itemStatus;
     }
 
-    public void setItemStatus(ItemStatus itemStatus) {
+    public void setItemStatus(ItemStatusEnum itemStatus) {
         this.itemStatus = itemStatus;
     }
 

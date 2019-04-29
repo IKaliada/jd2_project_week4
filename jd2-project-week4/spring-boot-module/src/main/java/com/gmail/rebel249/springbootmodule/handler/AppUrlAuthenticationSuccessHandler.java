@@ -41,9 +41,9 @@ public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccess
 
     protected String determineTargetUrl(final Authentication authentication) {
         Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        if (authorities.contains("ROLE_ADMIN")) {
+        if (authorities.contains("ADMIN")) {
             return "/private/users";
-        } else if (authorities.contains("ROLE_CUSTOMER")) {
+        } else if (authorities.contains("CUSTOMER")) {
             return "/private/items";
         } else {
             throw new IllegalStateException();
